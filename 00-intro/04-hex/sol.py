@@ -2,7 +2,9 @@
 
 import base64
 
-enc = "72bca9b68fc16ac7beeb8f849dca1d8a783e8acf9679bf9269f7bf"
+with open("enc", "r", encoding='utf-8') as f:
+    enc = f.read().strip()
+
 d_bytes = bytes.fromhex(enc)
 flag = base64.b64encode(d_bytes)
 
