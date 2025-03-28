@@ -24,8 +24,7 @@ Untuk membongkar Playfair cipher, Cyber Fox mulai mengidentifikasi digram (pasan
 
 ### Notes
 
-- Dalam proses pembuatan ciphertext, seluruh karakter dalam plainteks diubah
-menjadi huruf kapital. 
+- Dalam proses pembuatan ciphertext, seluruh karakter dalam plainteks diubah menjadi huruf kapital. 
 - Enkripsi hanya diterapkan pada karakter alfabet (A–Z), sementara karakter nonalfabet seperti angka, spasi, koma, titik, dan simbol lainnya diabaikan dan tidak disertakan dalam hasil enkripsi.
 - Diperbolehkan menggunakan pendekatan Brute Force atau Exhaustive Key Search, tetapi hanya sebagai pembanding dengan metode kriptanalisis.
 
@@ -48,6 +47,7 @@ menjadi huruf kapital.
   Top 100 bigrams dalam bahasa Inggris:
 
   ![EN Digrams](assets/en_digrams.png)
+
   Sumber: [dcode.fr/bigrams](https://www.dcode.fr/bigrams)
 
 - Tabel frekuensi kemunculan pasangan huruf (digram) dalam ciphertext
@@ -60,10 +60,68 @@ menjadi huruf kapital.
 
   2. Gunakan program python [freq_analysis.py](freq_analysis/freq_analysis.py) untuk menemukan bigram yang paling umum digunakan
 
-  3. 
+      - Hasilnya dapat dilihat pada [freq_analysis/out.txt](./freq_analysis/out.txt)
+
+  3. Setelah mengetahui bigram paling umum, lakukan analisis frekuensi sebagai berikut:
+
+      i. Bandingkan dengan Frekuensi Digram Bahasa Inggris
+      
+        - Dalam bahasa Inggris, digram umum seperti TH, HE, IN, ER, AN, RE sering muncul (gunakan tabel digram paling sering muncul di atas)
+        - Cocokkan pola digram ciphertext dengan statistik frekuensi bahasa Inggris.
+
+      ii. Identifikasi Pola dalam Ciphertext
+      
+        - Perhatikan aturan Playfair:
+
+          Satu baris → huruf bergeser ke kiri
+
+          Satu kolom → huruf bergeser ke atas
+
+          Bentuk persegi panjang → huruf bertukar posisi secara diagonal
+
+          Gunakan pola ini untuk menebak kemungkinan huruf asli.
+
+      iii. Tebak dan Rekonstruksi Kunci Playfair (5×5 Grid)
+      
+        - Gunakan hasil analisis digram untuk menebak sebagian isi matriks kunci.
+        - Coba susun huruf yang paling sering muncul sesuai pola grid 5×5.
+        - Ingat bahwa Playfair menghilangkan huruf J atau menggabungkannya dengan I.
+
+      iv. Uji Dekripsi dengan Kunci Sementara
+      
+        - Gunakan kunci yang sudah direkonstruksi untuk mencoba mendekripsi ciphertext.
+        - Jika hasilnya belum masuk akal, perbaiki tebakan berdasarkan pola yang muncul.
+        - Untuk pengujian ini, saya menggunakan program Python custom yang telah saya buat: [playfair_decrypt.py](./playfair_cipher/playfair_decrypt.py)
+
+      v. Evaluasi dan Koreksi
+        
+        - Jika plaintext masih tidak masuk akal, ulangi proses dengan memperbaiki tebakan kunci atau menggunakan pendekatan statistik lain.
 
 - Plaintext hasil dekripsi
+
+  ```txt
+  CRYPTOGRAPHYISESSENTIALFORPROTECTINGINFORMATIONINCOMPUTINGSYSTEMSANDPLAYSAVITALROLEINTHEDAILYLIVESOFBILXLIONSOFPEOPLEWORLDWIDEBYSECURINGBOTHSTOREDANDTRANSMITXTEDXDATAFUNDAMENTALTOMANYSECURITYPROTOCOLSPARTICULARLYTRANSPORTLAYERSECURITYTLSCRYPTOGRAPHICTECHNIQUESENABLEROBUSTENCRYPTIONACROSXSVARIOUSAPPLICATIONSHOWEVERDESPITEITSIMPORTANCECRYPTOGRAPHYREMAINSFRAGILEITSSECURITYCANBECOMPLETELYUNDERMINEDBYASINGLEDESIGNFLAWORPROGRAMXMINGERRORTRADITIONALSOFTWARETESTINGMETHODSSUCHASUNITTESTINGAREINSUFXFICIENTFORDETECTINGCRYPTOGRAPHICVULNERABILITIESINSTEADCRYPTOGRAPHICSECURITYISESTABLISHEDTHROUGHRIGOROUSMATHEMATICALPROOFSANDFORMALANALYSISTOENSURECOMPLIANCEWITHESSENTIALSECURITYPRINCIPLESOFTENRELYINGONREASONABLEASXSUMPTIONSONEOFTHEXEARLYENCRYPTIONMETHODSTHATIMPROVEDUPONSIMPLESUBSTITUTIONCIPHERSISTHEPLAYFAIRCIPHERINTRODUCEDINTHETHCENTURYUNLIKEMONOALPHABETICCIPHERSPLAYFAIRENCRYPTSPAIRSOFLETXTERSUSINGAXKEYSQUAREMAKINGFREQUENCYANALYSISMOREDIFFICULTWHILEITWASONCECONSIDEREDASIGNIFICANTADVANCEMENTMODERNCRYPTANALYSISTECHNIQUESCANBREAKPLAYFAIRENCRYPTIONBYEXPLOITINGDIGRAMFREQUENCYDISTRIBUTIONSANDRECONSTRUCTINGTHEKEYSQUARETHISUNDERSCORESAFUNDAMENTALCONCEPTINCONTEMPORARYCRYPTOGRAPHYTRUESECURITYDEPENDSNOTONLYONSECRECYBUTALSOXONSTRONGMATHEMATICALPRINCIPLESANDCOMPUTATIONALINFEASIBILITYX
+  ```
+
 - Kunci enkripsi
-- Kode Python yang digunakan (jika ada)
+
+  ```txt
+  A S R I G
+  K L C N T
+  H B D E F
+  U M O P Q
+  Z V W X Y
+  ```
+
+- Kode Python yang digunakan
+
+  - Untuk frekuensi analisis: [req_analysis.py](./freq_analysis/freq_analysis.py)
+  - Untuk percobaan dekripsi key matrix: [playfair_decrypt.py](./playfair_cipher/playfair_decrypt.py)
+
 - Waktu kriptanalisis yang dibutuhkan
+
+  Sekitar 6 jam
+
 - Perbandingan dengan pendekatan Brute Force / Exhaustive Key Attack (optional)
+
+  [tidak dilakukan]
