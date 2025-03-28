@@ -97,6 +97,18 @@ Untuk membongkar Playfair cipher, Cyber Fox mulai mengidentifikasi digram (pasan
         
         - Jika plaintext masih tidak masuk akal, ulangi proses dengan memperbaiki tebakan kunci atau menggunakan pendekatan statistik lain.
 
+      vi. Pendekatan Simulated Annealing
+
+        - Karena terdapat 600 kemungkinan digram daripada hanya 26 pada monoalphabetic ciphers, akan sangat sulit untuk melakukan bruteforce (analisis frekuensi bukanlah alat kriptoanalisis efektif untuk memecahkan playfair cipher), sehingga saya melakukan pendekatan lain, yakni menggunakan metode Simulated Annaeling dimana saya menghitung 'kesesuaian' untuk bahasa Inggris. Semakin dekat ke 0 kesesuaiannya, semakin identik dengan bahasa Inggris teks tersebut.
+
+          Berikut merupakan output hasil simulated_annealing:
+
+          ![Simulated Annealing Out](./assets/simulated_annealing_out.png)
+
+          Berikut merupakan output hasil dekripsi:
+
+          ![Decrypt Out](./assets/decrypt_out.png)
+
 - Plaintext hasil dekripsi
 
   ```txt
@@ -120,7 +132,7 @@ Untuk membongkar Playfair cipher, Cyber Fox mulai mengidentifikasi digram (pasan
 
 - Waktu kriptanalisis yang dibutuhkan
 
-  Sekitar 6 jam
+  Dengan metode Simulated Annaeling: sekitar 1 menit
 
 - Perbandingan dengan pendekatan Brute Force / Exhaustive Key Attack (optional)
 

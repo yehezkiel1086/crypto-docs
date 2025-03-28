@@ -36,6 +36,13 @@ if __name__ == "__main__":
 
     ciphertext = f.read()
     plaintext = decrypt_playfair(ciphertext, key_matrix)
-    print("Plaintext hasil dekripsi Playfair Cipher:", plaintext)
+    print("Key matrix:")
+
+    for row in key_matrix:
+        for x in row:
+            print(x, end=" ")
+        print()
+
+    print("\nPlaintext hasil dekripsi Playfair Cipher:\n", plaintext)
 
     f.close()
